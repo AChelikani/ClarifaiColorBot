@@ -1,0 +1,25 @@
+{
+  "name": "clarifaicolorbot",
+  "version": "1.0.0",
+  "description": "A Facebook Messenger Bot that recognizes colors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AChelikani/ClarifaiColorBot.git"
+  },
+  "keywords": [
+    "messenger",
+    "bot",
+    "clarifai",
+    "color"
+  ],
+  "author": "Advith Chelikani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AChelikani/ClarifaiColorBot/issues"
+  },
+  "homepage": "https://github.com/AChelikani/ClarifaiColorBot#readme"
+}
