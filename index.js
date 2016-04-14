@@ -12,6 +12,9 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 // Index route
+app.get('/', function (req, res) {
+    res.send('Hello')
+})
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
