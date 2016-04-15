@@ -1,6 +1,7 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
+var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 var app = express()
 
 app.set('port', (process.env.PORT || 5000))
@@ -70,17 +71,17 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             text = event.message.text
             console.log(text);
-            var request = new XMLHttpRequest();
+            var xhr = new XMLHttpRequest();
             var data = "";
-            request.open('GET', 'https://graph.facebook.com/v2.6/' + id + '?fields=first_name&access_token=EAAOB3vqlxuYBAJTO8BPFuWaWQxRPyFvFUS7ZCdUigBeSugbax6z0U2cJ7fPMmwixnvnPv84iyPOoCzZB25oSZAf6zIuwpMa7gCwZBggbAKhW11IZAj483vapXrPvLKZAKI5HiB02VTZBCCjQtaZBRRuiAoL1D0Hg0JMjMM97SR5aZAQZDZD', false);
+            xhr.open('GET', 'https://graph.facebook.com/v2.6/' + id + '?fields=first_name&access_token=EAAOB3vqlxuYBAJTO8BPFuWaWQxRPyFvFUS7ZCdUigBeSugbax6z0U2cJ7fPMmwixnvnPv84iyPOoCzZB25oSZAf6zIuwpMa7gCwZBggbAKhW11IZAj483vapXrPvLKZAKI5HiB02VTZBCCjQtaZBRRuiAoL1D0Hg0JMjMM97SR5aZAQZDZD', false);
 
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 400) {
-                    data = JSON.parse(request.responseText);
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    data = JSON.parse(xhr.responseText);
                 }
             };
 
-            request.send();
+            xhr.send();
             sendTextMessage(sender, "Hello " + data.first_name)
         }
     }
