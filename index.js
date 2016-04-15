@@ -12,12 +12,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 // Process application/json
 app.use(bodyParser.json());
 
-// Index route
+// Index
 app.get('/', function (req, res) {
     res.send('Hello')
 });
 
-// for Facebook verification
+// Facebook authentication
 app.get('/webhook/', function (req, res) {
     if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
         res.send(req.query['hub.challenge'])
@@ -35,7 +35,7 @@ var DESCRIPTIONS = {"command" : "Gives a listing of all commands", "man" : "man 
 
 var token = "EAAOB3vqlxuYBAJTO8BPFuWaWQxRPyFvFUS7ZCdUigBeSugbax6z0U2cJ7fPMmwixnvnPv84iyPOoCzZB25oSZAf6zIuwpMa7gCwZBggbAKhW11IZAj483vapXrPvLKZAKI5HiB02VTZBCCjQtaZBRRuiAoL1D0Hg0JMjMM97SR5aZAQZDZD";
 
-
+// Send simple text outbound message
 function sendTextMessage(sender, text) {
     messageData = {
         text:text
@@ -57,7 +57,7 @@ function sendTextMessage(sender, text) {
     })
 };
 
-
+// Respond the incoming messages
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
@@ -79,12 +79,11 @@ app.post('/webhook/', function (req, res) {
             xhr.send();
             sendTextMessage(sender, "Hey " + data.first_name + "!");
         }
-        sendTextMessage(sender, "Type 'command' for more info!");
     }
     res.sendStatus(200)
 });
 
-// Spin up the server
+// Server
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
 });
