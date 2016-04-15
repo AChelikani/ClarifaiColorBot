@@ -78,6 +78,7 @@ app.post('/webhook/', function (req, res) {
 
             xhr.send();
             sendTextMessage(sender, "Hey " + data.first_name + "!");
+            sendTextMessage(sender, "Type 'command' for more info!");
         }
     }
     res.sendStatus(200)
