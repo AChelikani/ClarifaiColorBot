@@ -46,8 +46,6 @@ function sendTextMessage(sender, text, type) {
     })
 }
 
-function send
-
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
     console.log(req)
@@ -62,7 +60,7 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
-var token = "EAAOB3vqlxuYBACuL16QZAZA4F99kx8CF4U19ZBt7uJoLGhv4EQBbHRv0VfW0DwYhrxKlAOh7Sv2uegDTDdAk7MXvxkfoaCJUulrPllnsJKWPltJtDyDj47HBovZBco3AcUY46Y6aOiCaw4mMYtAsNYPnGiN4vDZCOliQtnf7sxgZDZD"
+var token = "EAAOB3vqlxuYBAJTO8BPFuWaWQxRPyFvFUS7ZCdUigBeSugbax6z0U2cJ7fPMmwixnvnPv84iyPOoCzZB25oSZAf6zIuwpMa7gCwZBggbAKhW11IZAj483vapXrPvLKZAKI5HiB02VTZBCCjQtaZBRRuiAoL1D0Hg0JMjMM97SR5aZAQZDZD"
 
 // Spin up the server
 app.listen(app.get('port'), function() {
