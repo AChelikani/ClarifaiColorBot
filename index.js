@@ -24,7 +24,7 @@ app.get('/webhook/', function (req, res) {
     res.send('Error, wrong token')
 })
 
-function sendTextMessage(sender, text, type) {
+function sendTextMessage(sender, text) {
     messageData = {
         text:text
     }
@@ -35,7 +35,6 @@ function sendTextMessage(sender, text, type) {
         json: {
             recipient: {id:sender},
             message: messageData,
-            notification_type: type,
         }
     }, function(error, response, body) {
         if (error) {
@@ -54,7 +53,7 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200), "REGULAR")
+            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
         }
     }
     res.sendStatus(200)
