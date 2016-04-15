@@ -69,6 +69,7 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
+            console.log(text);
             var request = new XMLHttpRequest();
             var data = "";
             request.open('GET', 'https://graph.facebook.com/v2.6/' + id + '?fields=first_name&access_token=EAAOB3vqlxuYBAJTO8BPFuWaWQxRPyFvFUS7ZCdUigBeSugbax6z0U2cJ7fPMmwixnvnPv84iyPOoCzZB25oSZAf6zIuwpMa7gCwZBggbAKhW11IZAj483vapXrPvLKZAKI5HiB02VTZBCCjQtaZBRRuiAoL1D0Hg0JMjMM97SR5aZAQZDZD', false);
