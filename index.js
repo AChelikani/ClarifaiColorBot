@@ -1,6 +1,5 @@
 var express = require('express')
 var bodyParser = require('body-parser')
-var curl = require('node-curl')
 var request = require('request')
 var app = express()
 
