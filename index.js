@@ -24,7 +24,7 @@ app.get('/webhook/', function (req, res) {
     res.send('Error, wrong token')
 })
 
-function sendTextMessage(sender, text) {
+function sendTextMessage(sender, text, type) {
     messageData = {
         text:text
     }
@@ -35,6 +35,7 @@ function sendTextMessage(sender, text) {
         json: {
             recipient: {id:sender},
             message: messageData,
+            notification_type: type,
         }
     }, function(error, response, body) {
         if (error) {
@@ -45,6 +46,8 @@ function sendTextMessage(sender, text) {
     })
 }
 
+function send
+
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
     console.log(req)
@@ -53,13 +56,13 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200), "REGULAR")
         }
     }
     res.sendStatus(200)
 })
 
-var token = "EAAOB3vqlxuYBAPEuxDUOh6DnpJtHA9VHcnbUYaXZARlXUOl1xsofsQiUF7xJBVt25ZCZC3VoczX5kZBZCjdnxYQyUcS3SvksTHNVZCdZBChc531n1E5qvl3ZCSt1x9qUomVrBp0mvFZB8HbSbskkmt8c2ZBXgnWRT434D9e09eTSpLuAZDZD"
+var token = "EAAOB3vqlxuYBABZBMEkAF3hZB69iH51U8y5Faapsw8ZAAA4ULXYBZCNhbAGXTYZAs0IAEbgtey9gSXZAz3gdCiOJdJEghOdlCZBKX8wvdIaJIPIZBZB1CM8Cy8EwvUCna94G6fvyFk8YojmMFgxvjVpENLuquZAOXJZCVrZAJDGzII4F3wZDZD"
 
 // Spin up the server
 app.listen(app.get('port'), function() {
