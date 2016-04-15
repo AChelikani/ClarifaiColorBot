@@ -1,21 +1,21 @@
-var express = require('express')
-var bodyParser = require('body-parser')
-var request = require('request')
+var express = require('express');
+var bodyParser = require('body-parser');
+var request = require('request');
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-var app = express()
+var app = express();
 
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 5000));
 
 // Process application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({extended: false}));
 
 // Process application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 // Index route
 app.get('/', function (req, res) {
     res.send('Hello')
-})
+});
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
@@ -23,7 +23,17 @@ app.get('/webhook/', function (req, res) {
         res.send(req.query['hub.challenge'])
     }
     res.send('Error, wrong token')
-})
+});
+
+
+/******* COMMANDS *******/
+var COMMANDS = ["command", "man", "status"];
+var DESCRIPTIONS = {"command" : "Gives a listing of all commands", "man" : "man [command] shows how to use a command", "status" : "status [email] [bus | app] gives your current status"};
+
+
+/************************/
+
+var token = "EAAOB3vqlxuYBAJTO8BPFuWaWQxRPyFvFUS7ZCdUigBeSugbax6z0U2cJ7fPMmwixnvnPv84iyPOoCzZB25oSZAf6zIuwpMa7gCwZBggbAKhW11IZAj483vapXrPvLKZAKI5HiB02VTZBCCjQtaZBRRuiAoL1D0Hg0JMjMM97SR5aZAQZDZD";
 
 
 function sendTextMessage(sender, text) {
@@ -45,20 +55,20 @@ function sendTextMessage(sender, text) {
             console.log('Error: ', response.body.error)
         }
     })
-}
+};
+
 
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
-    console.log(req)
     for (i = 0; i < messaging_events.length; i++) {
-        event = req.body.entry[0].messaging[i]
-        sender = event.sender.id
+        event = req.body.entry[0].messaging[i];
+        sender = event.sender.id;
         if (event.message && event.message.text) {
-            text = event.message.text
+            text = event.message.text;
             console.log(text);
             var xhr = new XMLHttpRequest();
             var data = "";
-            xhr.open('GET', 'https://graph.facebook.com/v2.6/' + sender + '?fields=first_name&access_token=EAAOB3vqlxuYBAJTO8BPFuWaWQxRPyFvFUS7ZCdUigBeSugbax6z0U2cJ7fPMmwixnvnPv84iyPOoCzZB25oSZAf6zIuwpMa7gCwZBggbAKhW11IZAj483vapXrPvLKZAKI5HiB02VTZBCCjQtaZBRRuiAoL1D0Hg0JMjMM97SR5aZAQZDZD', false);
+            xhr.open('GET', 'https://graph.facebook.com/v2.6/' + sender + '?fields=first_name&access_token=' + token, false);
 
             xhr.onload = function() {
                 if (xhr.status >= 200 && xhr.status < 400) {
@@ -67,16 +77,15 @@ app.post('/webhook/', function (req, res) {
             };
 
             xhr.send();
-            sendTextMessage(sender, "Hello " + data.first_name)
+            sendTextMessage(sender, "Hey " + data.first_name + "!");
+            sendTestMessage(sender, "Type 'command' for more info!");
         }
     }
     res.sendStatus(200)
-})
-
-var token = "EAAOB3vqlxuYBAJTO8BPFuWaWQxRPyFvFUS7ZCdUigBeSugbax6z0U2cJ7fPMmwixnvnPv84iyPOoCzZB25oSZAf6zIuwpMa7gCwZBggbAKhW11IZAj483vapXrPvLKZAKI5HiB02VTZBCCjQtaZBRRuiAoL1D0Hg0JMjMM97SR5aZAQZDZD"
+});
 
 // Spin up the server
 app.listen(app.get('port'), function() {
-    console.log('running on port', app.get('port'))
-})
+    console.log('running on port', app.get('port'));
+});
 
