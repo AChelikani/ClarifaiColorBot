@@ -62,7 +62,7 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
-var token = "EAAOB3vqlxuYBAKoU4uJSCxp5fKsg23f1jvxmUYYQxjwTBsRkKyuaTfSM7qxxfgohnoURgapKpG8TWhvFPmTPpp4uMFtZARFZAaV0le1Dsc0uU308V9yU7UP5tDAFPOaqXFbVdgov2agiuD79PHuN0yCwWxyRqjpOPxkIMMywZDZD"
+var token = "EAAOB3vqlxuYBACuL16QZAZA4F99kx8CF4U19ZBt7uJoLGhv4EQBbHRv0VfW0DwYhrxKlAOh7Sv2uegDTDdAk7MXvxkfoaCJUulrPllnsJKWPltJtDyDj47HBovZBco3AcUY46Y6aOiCaw4mMYtAsNYPnGiN4vDZCOliQtnf7sxgZDZD"
 
 // Spin up the server
 app.listen(app.get('port'), function() {
