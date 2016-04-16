@@ -29,11 +29,34 @@ app.get('/webhook/', function (req, res) {
 /******* COMMANDS *******/
 var COMMANDS = ["command", "man", "status"];
 var DESCRIPTIONS = {"command" : "Gives a listing of all commands", "man" : "man [command] shows how to use a command", "status" : "status [email] [bus | app] gives your current status"};
-
+var COMMANDS_ARGS = {"command" : [], "man" : COMMANDS, "status" : [["email"], ["bus", "app"]]};
+var COMMAND_ARG_LENGTH = {"command" : 0, "man" : 1, "status" : 2};
 
 /************************/
 
 var token = "EAAOB3vqlxuYBAJTO8BPFuWaWQxRPyFvFUS7ZCdUigBeSugbax6z0U2cJ7fPMmwixnvnPv84iyPOoCzZB25oSZAf6zIuwpMa7gCwZBggbAKhW11IZAj483vapXrPvLKZAKI5HiB02VTZBCCjQtaZBRRuiAoL1D0Hg0JMjMM97SR5aZAQZDZD";
+
+// Parse input message
+function parseMessage(text) {
+    var split = text.split(" ");
+    var index = COMMANDS.index(split[0].toLowerCase()); // Parent method already checks for existance of some text
+    if (index > -1) {
+        var commandName = COMMANDS[index];
+        if (COMMAND_ARG_LENGTH[commandName] != split.length()) {
+            return "invalid args";
+        }
+        if (commandName == "man" && COMMANDS.index(split[1]) > -1) {
+            return man(split[1]);
+        }
+        return "invalid args";
+    }
+    return "not a command";
+
+};
+
+function man(arg) {
+    return DESCRIPTIONS[arg];
+};
 
 // Send simple text outbound message
 function sendTextMessage(sender, text) {
