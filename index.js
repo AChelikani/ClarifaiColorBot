@@ -39,13 +39,13 @@ var token = "EAAOB3vqlxuYBAJTO8BPFuWaWQxRPyFvFUS7ZCdUigBeSugbax6z0U2cJ7fPMmwixnv
 // Parse input message
 function parseMessage(text) {
     var split = text.split(" ");
-    var index = COMMANDS.index(split[0].toLowerCase()); // Parent method already checks for existance of some text
+    var index = COMMANDS.indexOf(split[0].toLowerCase()); // Parent method already checks for existance of some text
     if (index > -1) {
         var commandName = COMMANDS[index];
         if (COMMAND_ARG_LENGTH[commandName] != split.length()) {
             return "invalid args";
         }
-        if (commandName == "man" && COMMANDS.index(split[1]) > -1) {
+        if (commandName == "man" && COMMANDS.indexOf(split[1]) > -1) {
             return man(split[1]);
         }
         return "invalid args";
