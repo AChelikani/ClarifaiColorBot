@@ -100,8 +100,15 @@ app.post('/webhook/', function (req, res) {
             };
 
             xhr.send();
-            sendTextMessage(sender, "Hey " + data.first_name + "!");
-            sendTextMessage(sender, "Type 'command' for more info!");
+
+            var res = parseMessage(text);
+            if (res == "not a command") {
+                sendTextMessage(sender, "Hey " + data.first_name + "!");
+                sendTextMessage(sender, "Type 'command' for more info!");
+            } else {
+                sendTextMessage(sender, res);
+            }
+
         }
     }
     res.sendStatus(200)
