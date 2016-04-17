@@ -100,7 +100,7 @@ app.post('/webhook/', function (req, res) {
             };
 
             xhr.send();
-
+            /*
             var res = parseMessage(text);
             if (res == "not a command") {
                 sendTextMessage(sender, "Hey " + data.first_name + "!");
@@ -108,6 +108,10 @@ app.post('/webhook/', function (req, res) {
             } else {
                 sendTextMessage(sender, res);
             }
+            */
+
+            sendTextMessage(sender, "Hey " + data.first_name + "!");
+            sendTextMessage(sender, "Type 'command' for more info!");
 
         }
     }
